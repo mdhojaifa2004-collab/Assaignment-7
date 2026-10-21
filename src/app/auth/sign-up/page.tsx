@@ -40,7 +40,7 @@ export default function SignUp() {
         email,
         password,
       });
-
+          console.log("result", result);
       if (result.error) {
         setError(result.error.message || "অ্যাকাউন্ট তৈরি করা যায়নি।");
         return;
