@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "../../app/lib/auth-client";
+
+
 const API = "https://openapi.programming-hero.com/api/bazardor";
 
 type Category = {
@@ -15,6 +17,13 @@ type Category = {
   categoryNameBn?: string;
   icon?: string;
   categoryIcon?: string;
+};
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  image?: string | null;
 };
 
 type Product = {
@@ -114,8 +123,7 @@ export default function Navbar() {
   const router = useRouter();
 
   const { data: session, isPending } = useSession();
-
-  const user = session?.user;
+  const user = (session as unknown as { user: User } | null)?.user;
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
